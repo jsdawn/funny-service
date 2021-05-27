@@ -6,6 +6,8 @@
 
 # 项目创建
 
+- [opr] 为可选或说明，非必须操作
+
 ## 初始化项目 init
 
 1. `yarn init`
@@ -22,8 +24,13 @@
 
 1. 创建数据库 新增 db 文件
 2. sequelize-cli db 目录下初始化数据库配置信息 `npx sequelize-cli init`
-3. 生成模型文件：
+3. 生成模型以及迁移文件：
    `npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string`
-4. 持久化数据表，模型对应的[数据库表]：
+4. 持久化数据表，迁移文件以及模型对应的数据库表：
    1. 配置 db->config 数据库配置
-   2. 根据生成的模型迁移文件（migrations）创建数据表 `npx sequelize-cli db:migrate`
+   2. 根据生成的模型迁移文件（migrations）实际执行到数据库 `npx sequelize-cli db:migrate`
+   3. [自定义迁移] `npx sequelize-cli migration:generate --name oprname-modelname`
+   4. [QueryInterface . Method] `https://sequelize.org/master/class/lib/dialects/abstract/query-interface.js~QueryInterface.html`
+   5. [撤销] --to 撤销到 xxxx 之前
+      `npx sequelize-cli db:migrate:undo:all [--to XXXXXXXXXXXXXX-create-posts.js]`
+   6. [执行] `npx sequelize-cli db:migrate`

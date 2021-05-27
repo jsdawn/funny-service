@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const userRouter = require('./router/user.router');
+
 const app = express();
 const router = express.Router();
 
@@ -11,13 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // 注册路由
-app.post('/create', (req, res) => {
-  let { name, age } = req.body;
-  res.json({
-    name,
-    age
-  });
-});
+app.use('/user', userRouter);
 
 // 后置中间件
 app.use((_req, res, _next) => {
