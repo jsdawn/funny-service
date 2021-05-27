@@ -20,7 +20,7 @@
 2. 设置服务启动，注册路由，中间件，处理异常
 3. 模组
 
-## 数据库初始化
+## 数据库初始化与管理
 
 1. 创建数据库 新增 db 文件
 2. sequelize-cli db 目录下初始化数据库配置信息 `npx sequelize-cli init`
@@ -34,3 +34,11 @@
    5. [撤销] --to 撤销到 xxxx 之前
       `npx sequelize-cli db:migrate:undo:all [--to XXXXXXXXXXXXXX-create-posts.js]`
    6. [执行] `npx sequelize-cli db:migrate`
+
+## 项目的发布和运维
+
+1. 配置pm2 `pm2 init` -> ecosystem.config.js
+2. pm2启动/日志/重启
+   - `pm2 start ecosystem.config.js`
+   - `pm2 log`
+   - `pm2 restart ecosystem.config.js`

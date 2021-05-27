@@ -1,7 +1,9 @@
 {
-  "name": "funnyService",
+  "name": "funny-service",
   "version": "1.0.0",
-  "main": "index.js",
+  "repository": "https://gitee.com/jsdawn/funny-service.git",
+  "author": "wyh <kingwyh1993@163.com>",
+  "main": "src/app.js",
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/app.js"
