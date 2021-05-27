@@ -37,8 +37,13 @@
 
 ## 项目的发布和运维
 
-1. 配置pm2 `pm2 init` -> ecosystem.config.js
-2. pm2启动/日志/重启
+1. 配置 pm2 `pm2 init` -> ecosystem.config.js
+2. pm2 启动/日志/重启
    - `pm2 start ecosystem.config.js`
    - `pm2 log`
    - `pm2 restart ecosystem.config.js`
+
+## 技术栈
+
+1. 运用技术： express、sequelize、mysql
+2. 关键点：模型设计，模型关系，API使用文档，测试
