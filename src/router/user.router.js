@@ -5,28 +5,26 @@ const router = express.Router();
 
 router.post('/update', async (req, res) => {
   let { id = 0, username, password, gender } = req.body;
+
   let user;
-  if (id) {
-    user = await User.findOne({ where: { id: id } });
-  }
-
-  // 传了id但无数据 =》未找到对应id数据
-  if (id && user === null) {
-    res.status(400).json({
-      status: 400,
-      msg: '未找到相关数据'
-    });
-    return;
-  }
-
-  // 创建、修改
-  if (user === null) {
+  // 无id 新建
+  if (!id) {
     user = await User.create({
       username,
       password,
       gender
     });
-  } else {
+  }
+  // 有id
+  else {
+    user = await User.findOne({ where: { id: id } });
+    if (user === null) {
+      res.status(400).json({
+        status: 400,
+        msg: '未找到相关数据'
+      });
+      return;
+    }
     user = await user.update({
       username,
       password,

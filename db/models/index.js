@@ -43,7 +43,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// 关联
+// 测试与测试题目关联
 db.Test.hasMany(db.TestQuestion, {
   foreignKey: 'test_id',
   sourceKey: 'id',
@@ -54,6 +54,19 @@ db.TestQuestion.belongsTo(db.Test, {
   foreignKey: 'test_id',
   targetKey: 'id',
   as: 'test'
+});
+
+// 测试题目与选项关联
+db.TestQuestion.hasMany(db.TestQuestionOption, {
+  foreignKey: 'question_id',
+  sourceKey: 'id',
+  as: 'options'
+});
+
+db.TestQuestionOption.belongsTo(db.TestQuestion, {
+  foreignKey: 'question_id',
+  targetKey: 'id',
+  as: 'question'
 });
 
 module.exports = db;

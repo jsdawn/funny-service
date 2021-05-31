@@ -34,6 +34,7 @@
    5. [撤销] --to 撤销到 xxxx 之前
       `npx sequelize-cli db:migrate:undo:all [--to XXXXXXXXXXXXXX-create-posts.js]`
    6. [执行] `npx sequelize-cli db:migrate`
+   7. 新增对应的 db 模组
 
 ## 项目的发布和运维
 
@@ -46,4 +47,4 @@
 ## 技术栈
 
 1. 运用技术： express、sequelize、mysql
-2. 关键点：模型设计，模型关系，API使用文档，测试
+2. 关键点：模型设计，模型关系，API 使用文档，测试
