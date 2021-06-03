@@ -1,5 +1,10 @@
 const express = require('express');
-const { Test, TestQuestion, TestQuestionOption } = require('../../db/models');
+const {
+  Test,
+  TestQuestion,
+  TestQuestionOption,
+  TestUserAnswer
+} = require('../../db/models');
 
 const router = express.Router();
 
@@ -85,6 +90,38 @@ router.get('/questions', async (req, res) => {
   });
 
   res.json({ status: 200, data: questions });
+});
+
+// 提交答案
+router.post('/answer', async (req, res) => {
+  let { test_id = 0, user_id = 0, choice } = req.body;
+
+  if (!test_id || !choice) {
+    res.status(400).json({ status: 400, msg: '参数有误！' });
+    return;
+  }
+
+  const options = await TestQuestionOption.findAll({
+    where: { test_id }
+  });
+
+  let total_score = 0;
+  choice.forEach(item => {
+    // 单选题 value就是option_id
+    let opt = options.find(v => v.id === item.value && item.type === 'radio');
+    if (opt) {
+      total_score += opt.score;
+    }
+  });
+
+  const answer = await TestUserAnswer.create({
+    test_id,
+    user_id,
+    choice: JSON.stringify(choice),
+    score: total_score
+  });
+
+  res.json({ status: 200, data: answer });
 });
 
 module.exports = router;

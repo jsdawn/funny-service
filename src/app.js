@@ -1,17 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+require('../db/config/association');
 const userRouter = require('./router/user.router');
 const testRouter = require('./router/test.router');
 
 const app = express();
-const router = express.Router();
 
 // 前置中间件
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
+
+app.use((req, _res, next) => {
+  console.log(`====> ${req.method} ${req.path} <====`);
+  next();
+});
 
 // 注册路由
 app.use('/user', userRouter);
