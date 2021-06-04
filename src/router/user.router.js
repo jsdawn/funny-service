@@ -1,6 +1,6 @@
 const express = require('express');
 const crypto = require('crypto');
-const { User } = require('../../db/models');
+const { User, UserToken } = require('../../db/models');
 
 const router = express.Router();
 
@@ -34,15 +34,22 @@ router.post('/login', async (req, res) => {
     res.status(400).json({ status: 400, msg: '用户名不存在' });
     return;
   }
-
+  // 加密对比
   let md5 = crypto.createHash('md5');
   let cryPassword = md5.update(password).digest('hex');
-
   if (cryPassword !== user.password) {
     res.status(400).json({ status: 400, msg: '密码错误!' });
     return;
   }
-  res.json({ status: 200, data: user });
+
+  // TODO: 新增token凭证
+  // let now = new Date();
+  // let user_token = await UserToken.create({
+  //   user_id: user.id,
+  //   expiresAt: now
+  // });
+
+  res.json({ status: 200, data: { ...user, token: '' } });
 });
 
 // 用户信息
@@ -56,31 +63,20 @@ router.get('/info', async (req, res) => {
   res.json({ status: 200, data: user });
 });
 
+// 修改用户信息
 router.post('/update', async (req, res) => {
-  let { id = 0, username, password, gender } = req.body;
-
-  let user;
-  // 无id 新建
-  if (!id) {
-    user = await User.create({
-      username,
-      password,
-      gender
-    });
+  let { id = 0, username, password, avatar, gender } = req.body;
+  let user = await User.findOne({ where: { id } });
+  if (user === null) {
+    res.status(400).json({ status: 400, msg: '用户不存在' });
+    return;
   }
-  // 有id
-  else {
-    user = await User.findOne({ where: { id: id } });
-    if (user === null) {
-      res.status(400).json({ status: 400, msg: '未找到相关数据' });
-      return;
-    }
-    user = await user.update({
-      username,
-      password,
-      gender
-    });
-  }
+  user = await user.update({
+    username,
+    password,
+    avatar,
+    gender
+  });
 
   res.json({ status: 200, data: user });
 });

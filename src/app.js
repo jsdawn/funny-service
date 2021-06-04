@@ -30,7 +30,7 @@ app.use((_req, res, _next) => {
 // 异常处理
 app.use((err, _req, res, _next) => {
   res.status(500).json({
-    message: 'error:' + err ? err.message : ''
+    message: 'error:' + err ? err.message : 'Unknown.'
   });
 });
 

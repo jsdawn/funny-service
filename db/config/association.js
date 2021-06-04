@@ -65,4 +65,17 @@ db.TestUserAnswer.belongsTo(db.User, {
   as: 'user'
 });
 
+// 用户与token关联
+db.User.hasMany(db.UserToken, {
+  foreignKey: 'user_id',
+  sourceKey: 'id',
+  as: 'tokens'
+});
+
+db.UserToken.belongsTo(db.User, {
+  foreignKey: 'user_id',
+  targetKey: 'id',
+  as: 'user'
+});
+
 module.exports = db;
