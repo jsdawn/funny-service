@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const moment = require('moment');
 module.exports = (sequelize, DataTypes) => {
   class Test extends Model {
     /**
@@ -18,7 +19,19 @@ module.exports = (sequelize, DataTypes) => {
       brief: DataTypes.STRING,
       image: DataTypes.STRING,
       intro: DataTypes.TEXT,
-      tested_count: DataTypes.INTEGER
+      tested_count: DataTypes.INTEGER,
+      createdAt: {
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue('createdAt')).add(8, 'h');
+        }
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue('createdAt')).add(8, 'h');
+        }
+      }
     },
     {
       sequelize,

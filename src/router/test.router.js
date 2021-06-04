@@ -1,4 +1,5 @@
 const express = require('express');
+const { Op } = require('sequelize');
 const {
   Test,
   TestQuestion,
@@ -56,13 +57,16 @@ router.get('/detail', async (req, res) => {
 
 // 测评列表
 router.get('/list', async (req, res) => {
-  const { page, size = 20, search = {} } = req.body;
+  const { page = 1, size = 20, title } = req.query;
   let where = {};
+  if (title) {
+    where.title = { [Op.like]: `%${title}%` };
+  }
 
   const { count, rows } = await Test.findAndCountAll({
     where,
     offset: page ? (page - 1) * size : 0,
-    limit: size
+    limit: +size
   });
 
   res.json({

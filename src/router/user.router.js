@@ -1,5 +1,6 @@
 const express = require('express');
 const crypto = require('crypto');
+const UUID = require('uuid');
 const { User, UserToken } = require('../../db/models');
 
 const router = express.Router();
@@ -42,14 +43,22 @@ router.post('/login', async (req, res) => {
     return;
   }
 
-  // TODO: 新增token凭证
-  // let now = new Date();
-  // let user_token = await UserToken.create({
-  //   user_id: user.id,
-  //   expiresAt: now
-  // });
+  let now = new Date();
+  console.log(now);
+  let user_token = await UserToken.create({
+    user_id: user.id,
+    token: UUID.v4(),
+    expiresAt: now
+  });
 
-  res.json({ status: 200, data: { ...user, token: '' } });
+  res.json({
+    status: 200,
+    data: {
+      token: user_token.token,
+      expiresAt: user_token.expiresAt,
+      user
+    }
+  });
 });
 
 // 用户信息
@@ -79,25 +88,6 @@ router.post('/update', async (req, res) => {
   });
 
   res.json({ status: 200, data: user });
-});
-
-router.get('/list', async (req, res) => {
-  const { page, size = 5, search = {} } = req.body;
-  let where = {};
-  if (search.gender) {
-    where.gender = search.gender;
-  }
-
-  const { count, rows } = await User.findAndCountAll({
-    where,
-    offset: page ? (page - 1) * size : 0,
-    limit: size
-  });
-
-  res.json({
-    status: 200,
-    data: { list: rows, total: count }
-  });
 });
 
 module.exports = router;
