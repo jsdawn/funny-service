@@ -46,7 +46,7 @@ router.post('/update', async (req, res) => {
 
 // 测评详情
 router.get('/detail', async (req, res) => {
-  const { id = 0 } = req.body;
+  const { id = 0 } = req.query;
 
   const test = await Test.findOne({
     where: { id: id }
@@ -77,7 +77,7 @@ router.get('/list', async (req, res) => {
 
 // 获取题目
 router.get('/questions', async (req, res) => {
-  const { test_id } = req.body;
+  const { test_id } = req.query;
 
   if (!test_id) {
     res.status(400).json({ status: 400, msg: '参数有误！' });

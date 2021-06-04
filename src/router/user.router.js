@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
 
 // 用户信息
 router.get('/info', async (req, res) => {
-  let { id = 0 } = req.body;
+  let { id = 0 } = req.query;
   let user = await User.findOne({ where: { id } });
   if (user === null) {
     res.status(400).json({ status: 400, msg: '用户不存在' });
