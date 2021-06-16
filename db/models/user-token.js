@@ -16,7 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       user_id: DataTypes.INTEGER,
       token: DataTypes.UUID,
-      expiresAt: DataTypes.DATE,
+      expiresAt: {
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue('expiresAt')).add(8, 'h');
+        }
+      },
       createdAt: {
         type: DataTypes.DATE,
         get() {
@@ -26,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: {
         type: DataTypes.DATE,
         get() {
-          return moment(this.getDataValue('createdAt')).add(8, 'h');
+          return moment(this.getDataValue('updatedAt')).add(8, 'h');
         }
       }
     },

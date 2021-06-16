@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
 require('../db/config/association');
+
+const validateToken = require('./middleware/validate-token');
 const userRouter = require('./router/user.router');
 const testRouter = require('./router/test.router');
 
@@ -19,7 +20,7 @@ app.use((req, _res, next) => {
 });
 
 // 注册路由
-app.use('/user', userRouter);
+app.use('/user', [validateToken], userRouter);
 app.use('/test', testRouter);
 
 // 后置中间件

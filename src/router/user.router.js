@@ -1,6 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const UUID = require('uuid');
+const moment = require('moment');
 const { User, UserToken } = require('../../db/models');
 
 const router = express.Router();
@@ -44,11 +45,10 @@ router.post('/login', async (req, res) => {
   }
 
   let now = new Date();
-  console.log(now);
   let user_token = await UserToken.create({
     user_id: user.id,
     token: UUID.v4(),
-    expiresAt: now
+    expiresAt: moment(now).add(2, 'h')
   });
 
   res.json({
@@ -64,6 +64,10 @@ router.post('/login', async (req, res) => {
 // 用户信息
 router.get('/info', async (req, res) => {
   let { id = 0 } = req.query;
+  if (req.validUserId !== parseInt(id)) {
+    res.status(400).json({ status: 400, msg: '无权限查看他人信息' });
+    return;
+  }
   let user = await User.findOne({ where: { id } });
   if (user === null) {
     res.status(400).json({ status: 400, msg: '用户不存在' });

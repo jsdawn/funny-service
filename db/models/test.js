@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: {
         type: DataTypes.DATE,
         get() {
-          return moment(this.getDataValue('createdAt')).add(8, 'h');
+          return moment(this.getDataValue('updatedAt')).add(8, 'h');
         }
       }
     },
