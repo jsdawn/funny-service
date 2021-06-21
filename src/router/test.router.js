@@ -9,6 +9,14 @@ const {
 
 const router = express.Router();
 
+// demo
+router.get('/demo', async (_req, res) => {
+  res.json({
+    status: 200,
+    data: { msg: 'demo api' }
+  });
+});
+
 // 修改测评
 router.post('/update', async (req, res) => {
   let { id = 0, title, type, brief, image, intro, tested_count } = req.body;
