@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('express-async-errors'); // promise err to next(err)
 require('../db/config/association');
 
 const validateToken = require('./middleware/validate-token');
@@ -36,5 +37,5 @@ app.use((err, _req, res, _next) => {
 });
 
 app.listen('3000', () => {
-  console.log('service start successfully');
+  console.log('service start successfully. from: ' + app.get('env'));
 });

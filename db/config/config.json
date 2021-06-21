@@ -9,16 +9,17 @@
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "123456",
+    "database": "funny_test2",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "password": "123456",
+    "database": "funny_test",
+    "host": "47.106.69.35",
+    "port": "3307",
     "dialect": "mysql"
   }
 }

@@ -59,3 +59,12 @@
 
 1. 运用技术： express、sequelize、mysql
 2. 关键点：模型设计，模型关系，API 使用文档，测试
+
+## docker 部署
+
+1. docker-build.sh -> push aliyun hub
+2. docker-run.sh (service)
+
+# 延伸
+
+Kubernates
