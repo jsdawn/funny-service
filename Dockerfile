@@ -1,5 +1,5 @@
 FROM node:12.1
-MAINTAINER kingwyh1993@163.com
+LABEL maintainer="kingwyh1993@163.com"
 COPY . /home/funnyService
 WORKDIR /home/funnyService
 RUN npm install yarn -g
