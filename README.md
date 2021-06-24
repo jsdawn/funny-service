@@ -62,8 +62,8 @@
 
 ## docker 部署
 
-1. docker-build.sh -> push aliyun hub
-2. docker-run.sh (service)
+1. Dockerfile
+2. docker-compose
 
 # 延伸
 
