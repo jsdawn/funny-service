@@ -1,1 +1,0 @@
-docker build -t funny-node:1.0 .
