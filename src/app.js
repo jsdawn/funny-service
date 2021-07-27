@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors');
 const path = require('path');
 require('express-async-errors'); // promise err to next(err)
 require('../db/config/association');
@@ -21,6 +22,7 @@ app.use((req, _res, next) => {
   next();
 });
 
+app.use(cors());
 // 静态
 app.use('/static', express.static(path.join(__dirname, '../public')));
 // 注册路由
@@ -39,6 +41,9 @@ app.use((err, _req, res, _next) => {
     .status(500)
     .json({ status: 500, msg: 'error:' + err ? err.message : 'Unknown.' });
 });
+
+const ul = encodeURIComponent('http://127.0.0.1:3000/static/files/16273584947416d8b088130353c59763d633671046898.jpg')
+console.log(ul);
 
 app.listen('3000', () => {
   console.log('service start successfully. from: ' + app.get('env'));
