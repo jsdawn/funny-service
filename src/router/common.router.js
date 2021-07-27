@@ -17,27 +17,31 @@ router.post('/upload', (req, res, next) => {
     multiples: true,
     uploadDir: path.join(__dirname, '../../public/files')
   });
-  form.parse(req, (err, fields, files) => {
+
+  form.parse(req, (err, _fields, files) => {
     if (err) {
       next(err);
       return;
     }
-    if (files.file) {
-      let file = files.file;
-      const oldPath = file.path;
-      const newName = Date.now() + file.name;
-      const newPath = path.join(path.dirname(oldPath), newName);
-      fs.rename(oldPath, newPath, err => {
-        if (err) {
-          next(err);
-          return;
-        }
-        res.json({
-          status: 200,
-          data: { path: 'http://127.0.0.1:3000/static/files/' + newName }
-        });
-      });
+    if (!files.file) {
+      res.status(400).json({ status: 400, msg: '未上传文件' });
+      return;
     }
+
+    let file = files.file;
+    const oldPath = file.path;
+    const newName = Date.now() + file.name;
+    const newPath = path.join(path.dirname(oldPath), newName);
+    fs.rename(oldPath, newPath, err => {
+      if (err) {
+        next(err);
+        return;
+      }
+      res.json({
+        status: 200,
+        data: { path: 'http://127.0.0.1:3000/static/files/' + newName }
+      });
+    });
   });
 });
 

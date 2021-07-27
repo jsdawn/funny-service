@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 require('express-async-errors'); // promise err to next(err)
 require('../db/config/association');
 
@@ -11,11 +10,11 @@ const testRouter = require('./router/test.router');
 
 const app = express();
 
-// 前置中间件
+// 前置中间件 in Express > v4.16.0
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 // parse application/json
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use((req, _res, next) => {
   console.log(`====> ${req.method} ${req.path} <====`);
