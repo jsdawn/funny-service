@@ -16,10 +16,10 @@
   },
   "production": {
     "username": "root",
-    "password": "123456",
+    "password": "root",
     "database": "funny_test",
-    "host": "47.106.69.35",
-    "port": "3307",
+    "host": "127.0.0.1",
+    "port": "8889",
     "dialect": "mysql"
   }
 }

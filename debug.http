@@ -2,8 +2,6 @@
 ## REST Client  (vscode plugin)
 
 
-# @apiHost = http://47.106.69.35:3000
-
 @apiHost = http://localhost:3000
 
 ### demo
@@ -32,7 +30,7 @@ content-type: application/json
 
 ### 用户信息
 GET {{apiHost}}/user/info?id=1
-user-token: b0f99073-9a47-4da1-9345-ecf9b6a8335b
+user-token: 
 
 ### 获取测试列表
 GET {{apiHost}}/test/list?page=1&title=你
