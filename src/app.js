@@ -42,9 +42,6 @@ app.use((err, _req, res, _next) => {
     .json({ status: 500, msg: 'error:' + err ? err.message : 'Unknown.' });
 });
 
-const ul = encodeURIComponent('http://127.0.0.1:3000/static/files/16273584947416d8b088130353c59763d633671046898.jpg')
-console.log(ul);
-
 app.listen('3000', () => {
   console.log('service start successfully. from: ' + app.get('env'));
 });

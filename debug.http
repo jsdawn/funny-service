@@ -1,0 +1,58 @@
+##
+## REST Client  (vscode plugin)
+
+
+# @apiHost = http://47.106.69.35:3000
+
+@apiHost = http://localhost:3000
+
+### demo
+GET {{apiHost}}/test/demo
+
+### 注册
+POST {{apiHost}}/user/signin
+content-type: application/json
+
+{
+  "username": "qingshan",
+  "password": "111111",
+  "avatar": "",
+  "gender": ""
+}
+
+### 登录
+POST {{apiHost}}/user/login
+content-type: application/json
+
+{
+  "username": "qingshan",
+  "password": "111111"
+}
+
+
+### 用户信息
+GET {{apiHost}}/user/info?id=1
+user-token: b0f99073-9a47-4da1-9345-ecf9b6a8335b
+
+### 获取测试列表
+GET {{apiHost}}/test/list?page=1&title=你
+
+### 获取测试详情
+GET {{apiHost}}/test/detail?id=1
+
+### 测试题目
+GET {{apiHost}}/test/questions?test_id=1
+
+### 提交测试答案
+POST {{apiHost}}/test/answer
+content-type: application/json
+
+{
+  "test_id": 1,
+  "user_id": 1,
+  "choice": [
+    {"question_id": 1, "type": "radio", "value": 2},
+    {"question_id": 2, "type": "radio", "value": 5},
+    {"question_id": 3, "type": "radio", "value": 8}
+  ]
+}
